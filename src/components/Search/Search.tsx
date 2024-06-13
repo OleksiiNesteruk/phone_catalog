@@ -20,6 +20,7 @@ export const Search: React.FC = () => {
       newQuery.delete('query');
     }
 
+    newQuery.set('page', '1');
     setSearchParams(newQuery);
   };
 
