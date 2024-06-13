@@ -88,13 +88,13 @@
   @extend %h3-tablet;
 }
 
-.existPrice {
-  color: var(--color-primary);
+.fullPrice {
+  color: var(--color-secondary);
+  text-decoration: line-through;
 }
 
 .hotPrice {
-  display: flex;
-  color: var(--color-secondary);
+  color: var(--color-primary);
 }
 
 .specsList {

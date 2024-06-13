@@ -73,7 +73,6 @@
   padding-top: 16px;
 }
 
-
 .price {
   display: flex;
   gap: 8px;
@@ -81,13 +80,13 @@
   @extend %h3-tablet;
 }
 
-.existPrice {
+.hotPrice {
   color: var(--color-primary);
 }
 
-.hotPrice {
-  display: flex;
+.fullPrice {
   color: var(--color-secondary);
+  text-decoration: line-through;
 }
 
 .divider {

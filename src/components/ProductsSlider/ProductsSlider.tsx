@@ -10,7 +10,6 @@ import classNames from 'classnames';
 type Props = {
   products: Product[];
   title: string;
-  isHomePage?: boolean;
 };
 
 export const ProductsSlider: React.FC<Props> = ({ products, title }) => {
