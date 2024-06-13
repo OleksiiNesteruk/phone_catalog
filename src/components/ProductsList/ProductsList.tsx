@@ -30,7 +30,6 @@ export const ProductsList: React.FC<ProductsListProps> = ({
   const searchQuery = searchParams.get('query') || '';
 
   const actualPerPage = perPage === 'All' ? products.length : parseInt(perPage);
-  const total = products.length;
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -55,17 +54,29 @@ export const ProductsList: React.FC<ProductsListProps> = ({
 
   const handleSortChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
-      setSearchParams({ sort: event.target.value, page: '1', perPage });
+      setSearchParams(prev => {
+        const newParams = new URLSearchParams(prev);
+
+        newParams.set('sort', event.target.value);
+        newParams.set('page', '1');
+        newParams.set('perPage', perPage);
+
+        return newParams;
+      });
     },
     [setSearchParams, perPage],
   );
 
   const handlePerPageChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
-      setSearchParams({
-        perPage: event.target.value,
-        page: '1',
-        sort: sortType,
+      setSearchParams(prev => {
+        const newParams = new URLSearchParams(prev);
+
+        newParams.set('perPage', event.target.value);
+        newParams.set('page', '1');
+        newParams.set('sort', sortType);
+
+        return newParams;
       });
     },
     [setSearchParams, sortType],
@@ -73,7 +84,16 @@ export const ProductsList: React.FC<ProductsListProps> = ({
 
   const handlePageChange = useCallback(
     (newPage: number) => {
-      setSearchParams({ page: String(newPage), perPage, sort: sortType });
+      setSearchParams(prev => {
+        const newParams = new URLSearchParams(prev);
+
+        newParams.set('page', newPage.toString());
+        newParams.set('perPage', perPage);
+        newParams.set('sort', sortType);
+
+        return newParams;
+      });
+
       setTimeout(scrollToTop, 0);
     },
     [setSearchParams, perPage, sortType],
@@ -148,9 +168,9 @@ export const ProductsList: React.FC<ProductsListProps> = ({
             ))}
           </div>
 
-          {perPage !== 'All' && (
+          {perPage !== 'All' && filteredProducts.length > actualPerPage && (
             <Pagination
-              total={total}
+              total={filteredProducts.length}
               perPage={actualPerPage}
               currentPage={page}
               onPageChange={handlePageChange}
