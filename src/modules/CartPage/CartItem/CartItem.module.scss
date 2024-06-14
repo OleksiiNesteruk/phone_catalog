@@ -56,6 +56,12 @@
   object-fit: contain;
 }
 
+.productName {
+  color : var(--color-primary);
+
+  @extend %body-text;
+}
+
 .quantityControl {
   display: flex;
   height: 32px;
